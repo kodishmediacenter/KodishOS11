@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
 printf "\e[0;32m[===============================================================]\e[m %s\n" "${1}";
-echo "++++++++++ Bem Vindo A Instalação Kodish OS 10 Gamming ++++++++++"
+echo "++++++++++ Bem Vindo A Instalação Kodish OS 11 Gamming ++++++++++"
 printf "\e[0;32m[===============================================================]\e[m %s\n" "${1}";
 # Instala o reflector (nao vem no ISO)
 pacman -Syu --noconfirm reflector wget
@@ -58,6 +58,15 @@ genfstab -U /mnt >> /mnt/etc/fstab
 # 🛠️ Configuração no sistema
 arch-chroot /mnt /bin/bash <<EOF
 
+# Setup apps
+pacman -S --noconfirm kodi kodi-addon-inputstream-adaptive mpv ffmpeg yt-dlp
+pacman -S --noconfirm mesa libva-mesa-driver vulkan-radeon vulkan-intel intel-media-driver libva-utils
+pacman -S --noconfirm pipewire pipewire-pulse pipewire-alsa wireplumber alsa-utils
+pacman -S --noconfirm samba cifs-utils nfs-utils avahi nss-mdns openssh
+pacman -S --noconfirm libcec ntfs-3g exfatprogs udisks2
+pacman -S --noconfirm xorg lxde lightdm lightdm-gtk-greeter firefox
+pacman -S --noconfirm noto-fonts noto-fonts-emoji ttf-liberation file-roller unzip p7zip wget
+
 # Localizacao
 ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 hwclock --systohc
@@ -100,5 +109,9 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman -S --noconfirm reflector
 reflector --country Brazil --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
-wget https://raw.githubusercontent.com/kodishmediacenter/KodishOS11/refs/heads/main/name.sh
-sh name.sh
+wget https://raw.githubusercontent.com/kodishmediacenter/KodishOS11/main/name.sh
+chmod +x name.sh
+./name
+
+clear 
+echo "Instalação Concluida com Sucesso"
