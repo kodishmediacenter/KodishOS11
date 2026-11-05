@@ -56,5 +56,47 @@ pacstrap /mnt base linux-lts linux-lts-headers linux-firmware vim sudo networkma
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # 🛠️ Configuração no sistema
-arch-chroot /mnt /bin/bash
+arch-chroot /mnt /bin/bash <<EOF
+
+# Localizacao
+ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+hwclock --systohc
+echo "pt_BR.UTF-8 UTF-8" > /etc/locale.gen
+locale-gen
+echo "LANG=pt_BR.UTF-8" > /etc/locale.conf
+echo "KEYMAP=br-abnt2" > /etc/vconsole.conf
+
+# Hostname
+echo "archlinux" > /etc/hostname
+cat <<HOSTS > /etc/hosts
+127.0.0.1   localhost
+::1         localhost
+127.0.1.1   archlinux.localdomain archlinux
+HOSTS
+
+# NetworkManager
+systemctl enable NetworkManager
+
+# Suporte a Wi-Fi e Bluetooth
+pacman -S --noconfirm iwd bluez bluez-utils blueman
+systemctl enable iwd
+systemctl enable bluetooth
+
+# Usuario padrao
+useradd -m -G wheel -s /bin/bash kodish
+echo "kodish:kodish" | chpasswd
+echo "root:root" | chpasswd
+echo '%wheel ALL=(ALL:ALL) ALL' > /etc/sudoers.d/wheel
+
+# Ativa deteccao de outros sistemas
+echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
+os-prober
+
+# GRUB UEFI com fallback
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=Arch --removable --recheck
+grub-mkconfig -o /boot/grub/grub.cfg
+
+# Set Mirror para Brasil 
+pacman -S --noconfirm reflector
+reflector --country Brazil --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
