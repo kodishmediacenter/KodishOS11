@@ -109,9 +109,17 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman -S --noconfirm reflector
 reflector --country Brazil --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
+mkdir /kodish 
+chmod 775 /kodish
+cd /kodish
+
 wget https://raw.githubusercontent.com/kodishmediacenter/KodishOS11/main/name.sh
 chmod +x name.sh
 ./name
+
+systemctl enable lightdm
+systemctl set-default graphical.target
+
 
 clear 
 echo "Instalação Concluida com Sucesso"
