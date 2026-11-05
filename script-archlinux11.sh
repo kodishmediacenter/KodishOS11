@@ -100,5 +100,5 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman -S --noconfirm reflector
 reflector --country Brazil --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
-wget https://raw.githubusercontent.com/kodishmediacenter/Kodish_OS/refs/heads/master/scripts-kodish-gamer/name.sh
+wget https://raw.githubusercontent.com/kodishmediacenter/KodishOS11/refs/heads/main/name.sh
 sh name.sh
