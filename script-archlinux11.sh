@@ -66,6 +66,9 @@ pacman -S --noconfirm samba cifs-utils nfs-utils avahi nss-mdns openssh
 pacman -S --noconfirm libcec ntfs-3g exfatprogs udisks2
 pacman -S --noconfirm xorg lxde lightdm lightdm-gtk-greeter firefox
 pacman -S --noconfirm noto-fonts noto-fonts-emoji ttf-liberation file-roller unzip p7zip wget
+pacman -S --noconfirm flatpak
+
+flatpak 
 
 # Localizacao
 ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
@@ -112,10 +115,17 @@ reflector --country Brazil --age 12 --protocol https --sort rate --save /etc/pac
 mkdir /kodish 
 chmod 775 /kodish
 cd /kodish
+mkdir script 
 
 wget https://raw.githubusercontent.com/kodishmediacenter/KodishOS11/main/name.sh
-chmod +x name.sh
-./name
+wget https://raw.githubusercontent.com/kodishmediacenter/Kodish-OS-10/refs/heads/main/scripts-kodish-gamer/instalar_nyaa.sh
+wget https://raw.githubusercontent.com/kodishmediacenter/Kodish-OS-10/refs/heads/main/scripts-kodish-gamer/instalar-kodix.sh
+
+sh /kodish/script/name.sh &
+sh /kodish/script/instalar_nyaa.sh &
+sh /kodish/script/instalar-kodix.sh
+
+
 
 systemctl enable lightdm
 systemctl set-default graphical.target
