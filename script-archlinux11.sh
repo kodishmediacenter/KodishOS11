@@ -94,6 +94,12 @@ pacman -S --noconfirm iwd bluez bluez-utils blueman
 systemctl enable iwd
 systemctl enable bluetooth
 
+wget https://raw.githubusercontent.com/kodishmediacenter/KodishOS11/main/name.sh
+sh name.sh &
+
+wget https://raw.githubusercontent.com/kodishmediacenter/Kodish_OS/refs/heads/master/scripts-kodish-gamer/keyboardbr.sh
+sh keyboardbr.sh
+
 # Usuario padrao
 useradd -m -G wheel -s /bin/bash kodish
 echo "kodish:kodish" | chpasswd
@@ -120,11 +126,7 @@ mkdir script
 cd /etc/skel 
 mv .bashrc .bashrcbkp
 wget https://raw.githubusercontent.com/kodishmediacenter/KodishOS11/main/.bashrc
-
-wget https://raw.githubusercontent.com/kodishmediacenter/KodishOS11/main/name.sh
-sh /kodish/script/name.sh &
-
-
+cat .bashrc >> /home/kodish/.bashrc
 
 systemctl enable lightdm
 systemctl set-default graphical.target
