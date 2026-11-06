@@ -117,13 +117,12 @@ chmod 775 /kodish
 cd /kodish
 mkdir script 
 
-wget https://raw.githubusercontent.com/kodishmediacenter/KodishOS11/main/name.sh
-wget https://raw.githubusercontent.com/kodishmediacenter/Kodish-OS-10/refs/heads/main/scripts-kodish-gamer/instalar_nyaa.sh
-wget https://raw.githubusercontent.com/kodishmediacenter/Kodish-OS-10/refs/heads/main/scripts-kodish-gamer/instalar-kodix.sh
+cd /etc/skel 
+mv .bashrc .bashrcbkp
+wget https://raw.githubusercontent.com/kodishmediacenter/KodishOS11/main/.bashrc
 
+wget https://raw.githubusercontent.com/kodishmediacenter/KodishOS11/main/name.sh
 sh /kodish/script/name.sh &
-sh /kodish/script/instalar_nyaa.sh &
-sh /kodish/script/instalar-kodix.sh
 
 
 
